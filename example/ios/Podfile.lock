@@ -1,0 +1,22 @@
+PODS:
+  - add_to_wallet (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - add_to_wallet (from `.symlinks/plugins/add_to_wallet/ios`)
+  - Flutter (from `Flutter`)
+
+EXTERNAL SOURCES:
+  add_to_wallet:
+    :path: ".symlinks/plugins/add_to_wallet/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  add_to_wallet: f3b6a8d06f361aa1ae6b4f36487389e30e30daff
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.10.0.beta.2
