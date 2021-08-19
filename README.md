@@ -1,15 +1,11 @@
-# add_to_wallet
+# AddToWallet Flutter plugin
 
-A new flutter plugin project.
+A flutter plugin exposing the native `Add To Wallet` iOS button.
 
-## Getting Started
+## How
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+This plugin registers a native view factory and exposes it as a stateful widget into any flutter ecosystem. The intended use is for iOS mobile platform but the plugin should be safely usable in any other if you provide the widget with a `unsupportedPlatformChild` child widget.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## References
 
+- How this works under the carpet: https://flutter.dev/docs/development/platform-integration/platform-views

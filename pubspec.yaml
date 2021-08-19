@@ -1,6 +1,6 @@
 name: add_to_wallet
 description: Flutter plugin exposing native PKAddPassButton to interact with the Apple Wallet
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/barkibu/add_to_wallet
 repository: https://github.com/barkibu/add_to_wallet
 
@@ -11,6 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  uuid: ^3.0.4
 
 dev_dependencies:
   flutter_test:
