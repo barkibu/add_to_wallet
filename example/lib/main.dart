@@ -56,6 +56,9 @@ class _MyAppState extends State<MyApp> {
                   width: 150,
                   height: 30,
                   unsupportedPlatformChild: DownloadPass(pkPass: _pkPassData),
+                  onPressed: () {
+                    print("🎊Add to Wallet button Pressed!🎊");
+                  },
                 ),
             ],
           ),
