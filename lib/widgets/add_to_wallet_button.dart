@@ -1,30 +1,58 @@
+import 'dart:async';
+
+import 'package:add_to_wallet/add_to_wallet.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:uuid/uuid.dart';
 
-class AddToWalletButton extends StatelessWidget {
+class AddToWalletButton extends StatefulWidget {
+  static const viewType = 'PKAddPassButton';
+
   final List<int> pkPass;
   final double width;
   final double height;
   final Widget? unsupportedPlatformChild;
+  final FutureOr<void> Function()? onPressed;
+  final String _id = Uuid().v4();
 
   AddToWalletButton(
       {Key? key,
       required this.pkPass,
       required this.width,
       required this.height,
+      this.onPressed,
       this.unsupportedPlatformChild})
       : super(key: key);
 
-  static const viewType = 'PKAddPassButton';
+  @override
+  _AddToWalletButtonState createState() => _AddToWalletButtonState();
+}
 
-  get uiKitCreationParams => {'width': width, 'height': height, 'pass': pkPass};
+class _AddToWalletButtonState extends State<AddToWalletButton> {
+  get uiKitCreationParams => {
+        'width': widget.width,
+        'height': widget.height,
+        'pass': widget.pkPass,
+        'key': widget._id,
+      };
+
+  @override
+  void initState() {
+    super.initState();
+    AddToWallet().addHandler(widget._id, (_) => widget.onPressed?.call());
+  }
+
+  void dispose() {
+    AddToWallet().removeHandler(widget._id);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width,
-      height: height,
+      width: widget.width,
+      height: widget.height,
       child: platformWidget(context),
     );
   }
@@ -33,15 +61,14 @@ class AddToWalletButton extends StatelessWidget {
     switch (defaultTargetPlatform) {
       case TargetPlatform.iOS:
         return UiKitView(
-          viewType: viewType,
+          viewType: AddToWalletButton.viewType,
           layoutDirection: Directionality.of(context),
           creationParams: uiKitCreationParams,
           creationParamsCodec: const StandardMessageCodec(),
         );
       default:
-        if (unsupportedPlatformChild == null)
-          throw UnsupportedError('Unsupported platform view');
-        return unsupportedPlatformChild!;
+        if (widget.unsupportedPlatformChild == null) throw UnsupportedError('Unsupported platform view');
+        return widget.unsupportedPlatformChild!;
     }
   }
 }
