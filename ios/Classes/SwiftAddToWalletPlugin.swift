@@ -34,7 +34,7 @@ class PKAddPassButtonNativeViewFactory: NSObject, FlutterPlatformViewFactory {
 
 class PKAddPassButtonNativeView: NSObject, FlutterPlatformView {
     private var _view: UIView
-    private var _pass: FlutterStandardTypedData
+    private var _pass: [UInt8]
     private var _width: CGFloat
     private var _height: CGFloat
     private var _key: String
@@ -48,7 +48,7 @@ class PKAddPassButtonNativeView: NSObject, FlutterPlatformView {
         channel: FlutterMethodChannel
     ) {
         _view = UIView()
-        _pass = args["pass"] as! FlutterStandardTypedData
+        _pass = args["pass"] as! [UInt8]
         _width = args["width"] as? CGFloat ?? 140
         _height = args["height"] as? CGFloat ?? 30
         _key = args["key"] as! String
@@ -71,7 +71,8 @@ class PKAddPassButtonNativeView: NSObject, FlutterPlatformView {
     @objc func passButtonAction() {
         var newPass: PKPass
         do {
-            newPass = try PKPass(data: _pass.data)
+            let data = NSData(bytes: &_pass, length: _pass.count)
+            newPass = try PKPass(data: data as Data)
         } catch {
             print("No valid Pass data passed")
             return
