@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/services.dart';
 
 const SAMPLE_PASS_PATH = 'assets/passes/health_id_card_sample.pkpass';

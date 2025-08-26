@@ -1,11 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:add_to_wallet/add_to_wallet.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:share/share.dart';
 
 import 'pass_provider.dart';
 
@@ -55,7 +51,7 @@ class _MyAppState extends State<MyApp> {
                   pkPass: _pkPassData,
                   width: 150,
                   height: 30,
-                  unsupportedPlatformChild: DownloadPass(pkPass: _pkPassData),
+                  unsupportedPlatformChild: Text('Unsupported Platform'),
                   onPressed: () {
                     print("🎊Add to Wallet button Pressed!🎊");
                   },
@@ -65,37 +61,5 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
-  }
-}
-
-class DownloadPass extends StatelessWidget {
-  final List<int> pkPass;
-
-  const DownloadPass({Key? key, required this.pkPass}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: _onPressed, child: Text('🧷 pkpass'));
-  }
-
-  void _onPressed() async {
-    print("The button was pressed, we could let the user download the pass for instance!");
-    File passFile = await writePassFile();
-    Share.shareFiles([passFile.path], text: "Here is your pkPass!");
-  }
-
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
-  Future<File> get _localPassFile async {
-    final path = await _localPath;
-    return File('$path/pass.pkpass');
-  }
-
-  Future<File> writePassFile() async {
-    final file = await _localPassFile;
-    return file.writeAsBytes(pkPass);
   }
 }
